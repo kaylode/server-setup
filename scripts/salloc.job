@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH -p long    # which partition to run on ('compute' is default)
+#SBATCH -t 7-00:00:00    # maximum execution time: in this case one day, two hours and thirty minutes (optional)
+#SBATCH --cpus-per-task=16    # tell Slurm how many CPU cores you need, if different from default; your job won't be able to use more than this
+#SBATCH --mem=200000    # how much RAM you need (30GB in this case), if different from default; your job won't be able to use more than this
+#SBATCH --mail-type FAIL 
+#SBATCH --mail-user minhkhoi.pham@adaptcentre.ie 
+#SBATCH -o /home/mpham/workspace/slurm/slurm_reports/slurm.%x.%j.out # STDOUT
+
+# find open port  
+PORT=$(/home/mpham/micromamba/envs/ehrfm/bin/python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
+scontrol update JobId="$SLURM_JOB_ID" Comment="$PORT"
+
+echo "Starting sshd on port $PORT"  
+/usr/sbin/sshd -D -p $PORT -f /dev/null -h ${HOME}/.ssh/id_rsa
