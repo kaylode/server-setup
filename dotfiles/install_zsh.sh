@@ -29,13 +29,3 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/p
 
 # Add zsh-autosuggestions and zsh-syntax-highlighting to plugins in ~/.zshrc
 # Edit ~/.zshrc file, find plugins=(git) replace plugins=(git) with plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
-
-curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-export MAMBA_ROOT_PREFIX=~/micromamba  # optional, defaults to ~/micromamba
-eval "$(./bin/micromamba shell hook -s posix)"
-
-./bin/micromamba shell init -s zsh -r ~/micromamba
-source ~/.zshrc
-
-micromamba config append channels conda-forge

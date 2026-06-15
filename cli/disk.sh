@@ -1,4 +1,4 @@
-# Ensure pv is installed: sudo apt-get install pv
+# Optional dependency 'pv': Install rootless via Conda/Micromamba: 'micromamba install pv'
 
 FOLDER_ARG=$1
 if [ -z "$FOLDER_ARG" ]; then

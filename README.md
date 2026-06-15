@@ -1,14 +1,15 @@
 # New Server Setup
 
-This repository contains scripts and configuration templates to assist in setting up a clean, high-performance developer workspace on a new GPU/CPU server.
+This repository contains scripts and configuration templates to assist in setting up a clean, high-performance developer workspace on a new GPU/CPU server. **All scripts and tools are designed to run in userspace (rootless), requiring absolutely no `sudo` or root privileges.**
 
 ## Directory Structure
 
-*   **`dotfiles/`**: Zsh and Powerlevel10k theme configuration files (`.zshrc`, `.p10k.zsh`) and setup documentation.
-*   **`slurm/`**: Cluster job scheduling scripts, node tunneling configurations, workspace initializers, and quick diagnostic utilities.
+*   **`dotfiles/`**: Zsh source installer (`install_zsh.sh`), Zsh and Powerlevel10k configuration files (`.zshrc`, `.p10k.zsh`), and setup documentation.
+*   **`slurm/`**: Cluster job scheduling scripts, node tunneling configurations, and quick diagnostic utilities.
 *   **`podman/`**: Scripts for building and running application/orchestration stacks (Spark, Airflow, Inference) under rootless Podman.
 *   **`installations/`**: Software setup guides and installation scripts.
     - `install_npm.sh`: Script to automatically install NVM (Node Version Manager) and Node.js/NPM LTS.
+    - `install_micromamba.sh`: Script to install Conda/Micromamba rootless.
     - `gdrive.md`: Guide to setting up Google Drive CLI client.
     - `udocker.md`: Running Docker containers as a rootless user.
     - `miniforge.sh`: Script for installing Conda/Miniforge.

@@ -4,41 +4,61 @@ This directory contains scripts and batch templates to allocate compute resource
 
 ## Script Overview
 
-*   `init_workspace.sh`: A shell script that installs Zsh, Oh My Zsh, Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, and Micromamba to set up a clean workspace directory on the cluster.
-*   `salloc.sh`: Allocates GPU/CPU resources interactively and starts an interactive terminal.
-*   `salloc_long.sh` / `salloc.job`: Submits a background job to start a persistent SSH daemon on an allocated GPU node, retrieves the allocated node & port number, and SSHs directly into the workspace.
-*   `attach.sh`: Re-attaches to a running SSH job by name.
-*   `vsalloc.sh` / `vscode.job`: Allocates resources and configures a node specifically for remote VSCode connection.
-*   `slurm.sh`: A command-line helper script to quickly inspect queue state, partition maxtime, node limits, user resource usage, and scancel jobs.
+*   `alloc.sh`: The consolidated, unified resource allocation script. It manages interactive allocations, background SSH daemon tunnels, VSCode remote tunnels, and reattaching to active jobs.
 *   `SLURM.md`: Quick reference list of commonly used SLURM commands.
 
 ## Common Command Aliases
 
-We recommend adding the following aliases to your `.zshrc` (adjust paths as necessary):
+We recommend adding the following alias to your `.zshrc`:
 
 ```bash
-alias alloc="bash ~/workspace/source/slurm/salloc.sh"
-alias vsalloc="bash ~/workspace/source/slurm/vsalloc.sh"
-alias long_alloc="bash ~/workspace/source/slurm/salloc_long.sh"
-alias attach="bash ~/workspace/source/slurm/attach.sh"
+alias alloc="bash \$SERVER_SETUP_DIR/slurm/alloc.sh"
 ```
 
-## Quick Reference Commands
+## How to use the `alloc` command
 
-### Interactive Allocations
-To allocate a GPU node interactively:
+The unified script accepts arguments as `KEY=VALUE` pairs or subcommands:
+
+### 1. Default Interactive Allocation
 ```bash
-salloc -P compute -J interactive --cpus-per-task=8 --gres=gpu:1 srun --pty bash -i
+alloc
+```
+*(Default settings: partition `compute`, 4 CPUs, 30GB RAM, 1 GPU)*
+
+### 2. Long Partition / Long-Running Background Jobs
+Spawns a background SLURM job running an SSH daemon on a dynamic port, waits for it to start, and automatically SSH connects you into it:
+```bash
+alloc TYPE=long
 ```
 
-### Checking Cluster State
-To check node status, memory allocations, partition maxtimes, and running jobs:
+### 3. Customize GPU Resources
+Specify the number of GPUs or target hardware type:
 ```bash
-./slurm.sh info
+alloc GPU=2            # Request 2 default GPUs
+alloc GPU=a100         # Request 1 a100 GPU
+alloc GPU=rtx2080ti:2  # Request 2 rtx2080ti GPUs
 ```
 
-### Kill All User Jobs
-To cancel all jobs under your user account:
+### 4. Customize Memory and CPU Allocations
 ```bash
-./slurm.sh kill
+alloc MEM=100000       # Request 100GB of RAM memory
+alloc CPUS=8           # Request 8 CPU cores
+```
+
+### 5. Target a Specific Node
+```bash
+alloc NODE=g120        # Forces allocation on node g120
+```
+
+### 6. VSCode Remote Development allocation
+Preconfigured for VSCode tunnels:
+```bash
+alloc TYPE=vscode
+```
+
+### 7. Attach to an Active Job
+Re-opens an SSH connection to an active background job by Job ID or Job Name:
+```bash
+alloc attach 123456
+alloc attach alloc_job
 ```

@@ -6,15 +6,16 @@ This directory contains configuration files for setting up a modern Zsh shell en
 
 *   `.zshrc`: Custom Zsh shell runcom file containing custom aliases, exports, and plugin configurations.
 *   `.p10k.zsh`: Configuration for the Powerlevel10k theme (rainbow style prompt).
+*   `install_zsh.sh`: Script to download, compile, and install Zsh rootless, along with Oh My Zsh and Powerlevel10k.
 
 ## Prerequisites
 
-Ensure you have Zsh installed. If not, see the Zsh installation section in the SLURM directory (`init_workspace.sh`) or install via package manager:
+Ensure you have Zsh installed. Since this setup is **strictly rootless (no sudo)**, if Zsh is not available on your target server, you can compile and install it directly to your home directory (`$HOME/local/bin`) by running the included installation script:
 ```bash
-sudo apt install zsh -y # Debian/Ubuntu
-# or
-sudo dnf install zsh -y # Fedora/RHEL
+bash ./install_zsh.sh
 ```
+This script will download, compile, and install Zsh rootless.
+
 
 ## Setup Instructions
 
