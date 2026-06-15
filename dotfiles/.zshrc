@@ -121,7 +121,7 @@ alias untar="tar -xvzf"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias gdrive="$HOME/go_projects/gdrive/gdrive"
+alias gdrive="$SERVER_SETUP_DIR/gdrive/gdrive"
 export PATH="$HOME/tmp/bin/:$PATH"
 export GOPATH="$HOME/go_projects"
 export GOROOT="$HOME/go"

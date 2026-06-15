@@ -42,9 +42,29 @@ This script will download, compile, and install Zsh rootless.
     cp .p10k.zsh ~/.p10k.zsh
     ```
 
-5.  **Restart your Terminal** or reload configuration:
+5.  **Troubleshooting `chsh` / LDAP Environments**:
+    If your user registry is managed via LDAP/SSSD, `chsh` might fail with `chsh: user '...' does not exist in /etc/passwd`.
+    To bypass this, select **No (`n`)** when Oh My Zsh asks to change your default shell, and instead configure your `~/.bashrc` to auto-launch Zsh:
     ```bash
-    source ~/.zshrc
+    echo "export PATH=\$HOME/local/bin:\$PATH" >> ~/.bashrc
+    echo "exec zsh" >> ~/.bashrc
+    ```
+
+6.  **Install/Setup Prerequisites**:
+    The provided `.zshrc` relies on NVM (Node Version Manager) and a local env file. If you see errors about them, run:
+    ```bash
+    # Install NVM and Node LTS
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    nvm install --lts
+
+    # Create local environment files
+    mkdir -p ~/.local/bin
+    touch ~/.local/bin/env
+    ```
+
+7.  **Restart your Terminal** or reload configuration:
+    ```bash
+    exec zsh
     ```
 
 ## Custom Aliases and Exports in `.zshrc`
