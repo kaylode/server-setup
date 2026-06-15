@@ -114,26 +114,35 @@ alias gp="git push"
 alias gcm="git commit -m"
 alias ga="git add"
 alias gs="git status"
-alias alloc="bash ~/workspace/source/slurm/salloc.sh"
-alias vsalloc="bash ~/workspace/source/slurm/vsalloc.sh"
-alias long_alloc="bash ~/workspace/source/slurm/salloc_long.sh"
-alias attach="bash ~/workspace/source/slurm/attach.sh"
-
+export SERVER_SETUP_DIR="${SERVER_SETUP_DIR:-$HOME/workspace/source/server-setup}"
+alias alloc="bash $SERVER_SETUP_DIR/slurm/salloc.sh"
+alias vsalloc="bash $SERVER_SETUP_DIR/slurm/vsalloc.sh"
+alias long_alloc="bash $SERVER_SETUP_DIR/slurm/salloc_long.sh"
+alias attach="bash $SERVER_SETUP_DIR/slurm/attach.sh"
+alias zip="tar -czvf"
+alias untar="tar -xvzf"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'micromamba shell init' !!
-export MAMBA_EXE='/home/mpham/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/home/mpham/micromamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+alias gdrive="$HOME/go_projects/gdrive/gdrive"
+export PATH="$HOME/tmp/bin/:$PATH"
+export GOPATH="$HOME/go_projects"
+export GOROOT="$HOME/go"
+export TMPDIR=$HOME/tmp
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH
+export PATH=$PATH:$GOROOT/bin
+export PATH="$SERVER_SETUP_DIR/slurm/udocker/udocker-1.3.17/udocker:$PATH"
+export PATH="$HOME/.nebius/bin:$PATH"
+source ~/.nvm/nvm.sh
+nvm use --lts
 
-alias mamba="micromamba"
-export PATH="/home/mpham/tmp/bin/:$PATH"
+
+. "$HOME/.local/bin/env"
+export XDG_RUNTIME_DIR="/tmp/fsds-run-$USER/run"
+if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
+	    mkdir -p "$XDG_RUNTIME_DIR" >/dev/null 2>&1
+	        chmod 700 "$XDG_RUNTIME_DIR" >/dev/null 2>&1
+fi
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH

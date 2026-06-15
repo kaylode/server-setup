@@ -4,11 +4,10 @@ if [ -z "$1" ]
     else
         GPUs="gpu:$1:1"
 fi
-
-    # --nodelist=g128 \
+#--nodelist=g121,g122,g123
 salloc  \
-    --cpus-per-task=16 \
-    --mem=250000 \
-    --partition=compute \
+    --cpus-per-task=2 \
+    --mem=1000000 \
     --gres=$GPUs \
     srun --pty bash -i
+

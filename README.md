@@ -1,40 +1,28 @@
-# New Server Setup AI Engineer
+# New Server Setup
 
-This repository contains scripts and documentation to assist AI engineers in setting up a new server environment. The setup includes configurations for CLI tools, installations, and SLURM job scheduling.
+This repository contains scripts and configuration templates to assist in setting up a clean, high-performance developer workspace on a new GPU/CPU server.
 
 ## Directory Structure
 
-- **`cli/`**: Contains shell scripts and binaries for command-line interface operations.
-  - `active.sh`: Activate CUDA driver on GPU node.
-  - `disk.sh`: Analyze and display disk usage statistics (aggregated by depth 1)
-  - `hfd.md` and `hfd.sh`: Hugging Face Downloader (multi-process)
-  - `slurm.sh`: A utility script for executing commands in many scenarios.
+*   **`dotfiles/`**: Zsh and Powerlevel10k theme configuration files (`.zshrc`, `.p10k.zsh`) and setup documentation.
+*   **`slurm/`**: Cluster job scheduling scripts, node tunneling configurations, workspace initializers, and quick diagnostic utilities.
+*   **`podman/`**: Scripts for building and running application/orchestration stacks (Spark, Airflow, Inference) under rootless Podman.
+*   **`installations/`**: Software setup guides and installation scripts.
+    - `install_npm.sh`: Script to automatically install NVM (Node Version Manager) and Node.js/NPM LTS.
+    - `gdrive.md`: Guide to setting up Google Drive CLI client.
+    - `udocker.md`: Running Docker containers as a rootless user.
+    - `miniforge.sh`: Script for installing Conda/Miniforge.
+    - `wsl_gpu.md`: Setup configurations for GPU in WSL.
+*   **`cli/`**: Miscellaneous command-line helpers.
+    - `active.sh`: CUDA activation script.
+    - `disk.sh`: Quick depth-1 disk usage analyzer.
+    - `hfd.sh` / `hfd.md`: Multi-process Hugging Face model downloader.
+    - `gpu_new.sh` / `gpu_find.sh`: Helpers for locating/starting GPU jobs.
+*   **`mount/`**: Script files for mounting/unmounting disks.
 
-- **`installations/`**: Scripts and files for software installations.
-  - `udocker.md`: Docker without root
-  - `gdrive.md`: Google Drive integration
-  - `install_npm.sh`: Script to install npm.
-  - `miniforge.sh`: Script for installing Miniforge.
-  - `vscode_cli_alpine_x64_cli.tar.gz`: Archive for VSCode CLI installation (opening tunnel)
-  - `wsl_gpu.md`: Documentation for GPU setup in WSL.
-
-- **`mount/`**: Scripts for managing disk mounts.
-  - `mount_disk.sh`: Script to mount disks.
-  - `mount_list.sh`: Script to list mounted disks.
-  - `unmount.sh`: Script to unmount disks.
-
-- **`slurm/`**: SLURM job scheduling scripts.
-  - `cpu.tunnel.sbatch`: SLURM batch script for CPU jobs.
-  - `gpu.tunnel.sbatch`: SLURM batch script for GPU jobs.
-
-- **`dotfiles/`**: Dotfiles for configuration.
-- 
 ## Getting Started
 
-1. **Installation**: Use the scripts in the `installations/` directory to set up necessary packages.
-2. **Configuration**: Modify and run scripts in the `cli/` and `mount/` directories as needed for your environment.
-3. **Job Scheduling**: Use the `slurm/` scripts to allocate resources and run jobs.
-
-## License
-
-This project is licensed under the MIT License.
+1.  **Zsh Shell & Dotfiles**: Go to the [dotfiles](dotfiles/README.md) directory to set up Zsh, Oh My Zsh, Powerlevel10k, and copy your custom `.zshrc`.
+2.  **Node/NPM Setup**: Run `./installations/install_npm.sh` to install NVM and Node LTS.
+3.  **SLURM Job Setup**: Use scripts inside the [slurm](slurm/README.md) folder to configure interactive or background nodes.
+4.  **Podman Stack**: See the [podman](podman/README.md) directory to build and run containerized services.

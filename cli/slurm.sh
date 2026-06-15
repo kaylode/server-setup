@@ -18,10 +18,20 @@ case "$1" in
         scancel -u $USER
         ;;
     new)
-        bash ~/cli/gpu_new.sh $2 $3
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        if [ -f "$SCRIPT_DIR/gpu_new.sh" ]; then
+            bash "$SCRIPT_DIR/gpu_new.sh" "$2" "$3"
+        else
+            bash ~/cli/gpu_new.sh "$2" "$3"
+        fi
         ;;
     find)
-        bash ~/cli/gpu_find.sh $2 $3
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        if [ -f "$SCRIPT_DIR/gpu_find.sh" ]; then
+            bash "$SCRIPT_DIR/gpu_find.sh" "$2" "$3"
+        else
+            bash ~/cli/gpu_find.sh "$2" "$3"
+        fi
         ;;
     *)
         echo "Usage: $0 {info|kill|new|find}"

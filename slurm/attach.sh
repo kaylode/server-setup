@@ -4,8 +4,8 @@
 set -e
 
 # Initialize job count and name
-COUNT=$1
-JOB_NAME="interactive${COUNT}"
+#COUNT=$1
+JOB_NAME=$1 #"i${COUNT}"
 
 # Print allocated node and port information
 squeue -u "$USER" --name="$JOB_NAME"

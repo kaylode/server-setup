@@ -5,7 +5,7 @@ set -e
 
 # Initialize job count and name
 COUNT=1
-JOB_NAME="interactive1"
+JOB_NAME="i1"
 
 # Check if a job with the given name already exists
 NO_LINES=$(squeue -u "$USER" --name="$JOB_NAME" | wc -l)
@@ -18,7 +18,7 @@ do
        echo "Error: Maximum job count exceeded (3). Exiting."
        exit 1
    fi
-   JOB_NAME="interactive$COUNT"
+   JOB_NAME="i$COUNT"
    NO_LINES=$(squeue -u "$USER" --name="$JOB_NAME" | wc -l)
 done
 
@@ -29,8 +29,11 @@ else
     GPUs="gpu:$1:2"  # Use the provided number of GPUs
 fi
 
+# Get the directory of this script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Submit the Slurm job with the determined job name and GPU resources
-sbatch --gres=$GPUs -J "$JOB_NAME" ~/workspace/source/slurm/salloc.job
+sbatch -p "long" --gres=$GPUs -J "$JOB_NAME" "$SCRIPT_DIR/salloc.job"
 
 # Wait a few seconds to ensure the job appears in the queue
 sleep 5
