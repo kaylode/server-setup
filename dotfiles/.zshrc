@@ -115,22 +115,6 @@ alias gcm="git commit -m"
 alias ga="git add"
 alias gs="git status"
 # Dynamically locate the server-setup project directory
-if [[ -z "$SERVER_SETUP_DIR" ]]; then
-  for dir in "$HOME/workspace/source/server-setup" "$HOME/workspace/setup" "$HOME/workspace/server-setup"; do
-    if [[ -f "$dir/slurm/alloc.sh" ]]; then
-      export SERVER_SETUP_DIR="$dir"
-      break
-    fi
-  done
-  if [[ -z "$SERVER_SETUP_DIR" ]]; then
-    local found_dir=$(find "$HOME/workspace" -maxdepth 3 -name "alloc.sh" -path "*/slurm/alloc.sh" -print -quit 2>/dev/null)
-    if [[ -n "$found_dir" ]]; then
-      export SERVER_SETUP_DIR="${found_dir%/slurm/alloc.sh}"
-    else
-      export SERVER_SETUP_DIR="$HOME/workspace/source/server-setup"
-    fi
-  fi
-fi
 alias alloc='bash $SERVER_SETUP_DIR/slurm/alloc.sh'
 alias vsalloc='bash $SERVER_SETUP_DIR/slurm/vsalloc.sh'
 alias long_alloc='bash $SERVER_SETUP_DIR/slurm/salloc_long.sh'

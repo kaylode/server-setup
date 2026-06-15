@@ -45,8 +45,8 @@ This script will download, compile, and install Zsh rootless.
 5.  **Troubleshooting `chsh` / LDAP Environments**:
     If your user registry is managed via LDAP/SSSD, `chsh` might fail with `chsh: user '...' does not exist in /etc/passwd`.
     To bypass this, select **No (`n`)** when Oh My Zsh asks to change your default shell, and instead configure your `~/.bashrc` to auto-launch Zsh:
-    ```bash
     echo "export PATH=\$HOME/local/bin:\$PATH" >> ~/.bashrc
+    echo "export SERVER_SETUP_DIR=\"\$(git rev-parse --show-toplevel)\"" >> ~/.bashrc
     echo "exec zsh" >> ~/.bashrc
     ```
 
