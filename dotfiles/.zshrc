@@ -114,14 +114,33 @@ alias gp="git push"
 alias gcm="git commit -m"
 alias ga="git add"
 alias gs="git status"
-export SERVER_SETUP_DIR="${SERVER_SETUP_DIR:-$HOME/workspace/source/server-setup}"
-alias alloc="bash $SERVER_SETUP_DIR/slurm/alloc.sh"
+# Dynamically locate the server-setup project directory
+if [[ -z "$SERVER_SETUP_DIR" ]]; then
+  for dir in "$HOME/workspace/source/server-setup" "$HOME/workspace/setup" "$HOME/workspace/server-setup"; do
+    if [[ -f "$dir/slurm/alloc.sh" ]]; then
+      export SERVER_SETUP_DIR="$dir"
+      break
+    fi
+  done
+  if [[ -z "$SERVER_SETUP_DIR" ]]; then
+    local found_dir=$(find "$HOME/workspace" -maxdepth 3 -name "alloc.sh" -path "*/slurm/alloc.sh" -print -quit 2>/dev/null)
+    if [[ -n "$found_dir" ]]; then
+      export SERVER_SETUP_DIR="${found_dir%/slurm/alloc.sh}"
+    else
+      export SERVER_SETUP_DIR="$HOME/workspace/source/server-setup"
+    fi
+  fi
+fi
+alias alloc='bash $SERVER_SETUP_DIR/slurm/alloc.sh'
+alias vsalloc='bash $SERVER_SETUP_DIR/slurm/vsalloc.sh'
+alias long_alloc='bash $SERVER_SETUP_DIR/slurm/salloc_long.sh'
+alias attach='bash $SERVER_SETUP_DIR/slurm/attach.sh'
 alias zip="tar -czvf"
 alias untar="tar -xvzf"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias gdrive="$SERVER_SETUP_DIR/gdrive/gdrive"
+alias gdrive='$SERVER_SETUP_DIR/gdrive/gdrive'
 export PATH="$HOME/tmp/bin/:$PATH"
 export GOPATH="$HOME/go_projects"
 export GOROOT="$HOME/go"
