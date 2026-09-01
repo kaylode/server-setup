@@ -1,7 +1,7 @@
 cd ~
 
 ## Install ZSH ##
-wget http://www.zsh.org/pub/zsh-5.9.tar.xz
+wget http://www.zsh.org/pub/old/zsh-5.9.tar.xz
 tar -xvf zsh-5.9.tar.xz
 rm zsh-5.9.tar.xz
 cd zsh-5.9
