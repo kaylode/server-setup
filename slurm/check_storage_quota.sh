@@ -7,7 +7,7 @@ import os
 import sys
 
 # Default paths to check if no arguments provided
-default_paths = [f'/home/{os.environ["USER"]}', f'/spinning/{os.environ["USER"]}']
+default_paths = [os.path.expanduser("~"), f'/spinning/{os.environ["USER"]}']
 paths = sys.argv[1:] if len(sys.argv) > 1 else default_paths
 
 # Terminal ANSI colors
