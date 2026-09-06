@@ -18,7 +18,7 @@ alias alloc="bash \$SERVER_SETUP_DIR/slurm/alloc.sh"
 also add quota checking to bin
 
 ```bash
-ln -s $SERVER_SETUP_DIR/slurm/stq_script.sh ~/.local/bin/stq
+ln -s $SERVER_SETUP_DIR/slurm/check_storage_quota.sh ~/.local/bin/stq
 chmod +x ~/.local/bin/stq
 ```
 
