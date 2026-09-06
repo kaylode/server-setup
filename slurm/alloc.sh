@@ -14,7 +14,7 @@ CPUS="4"                 # CPU cores per task
 NODE=""                  # Optional specific node (e.g. g120)
 TIME="1-00:00:00"        # Execution time limit (e.g. 1-00:00:00)
 NAME="alloc_job"         # Job name identifier
-MAIL="minhkhoi.pham@adaptcentre.ie"
+MAIL="your email"
 SSH_KEY="$HOME/.ssh/id_ed25519"
 ATTACH_TARGET=""
 
@@ -155,6 +155,8 @@ elif [[ "$TYPE" == "background" || "$TYPE" == "vscode" ]]; then
 
 elif [[ "$TYPE" == "attach" ]]; then
     # Default to Name matching ATTACH_TARGET or fallback to looking up running jobs
+    
+    TARGET_NAME="${ATTACH_TARGET#ATTACH_TARGET=}"
     TARGET_NAME="${ATTACH_TARGET:-alloc_job}"
 
     # Check if target is a number (JobID) or name
