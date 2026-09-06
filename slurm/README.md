@@ -15,6 +15,13 @@ We recommend adding the following alias to your `.zshrc`:
 alias alloc="bash \$SERVER_SETUP_DIR/slurm/alloc.sh"
 ```
 
+also add quota checking to bin
+
+```bash
+ln -s /path/to/your/stq_script.sh ~/.local/bin/stq
+chmod +x ~/.local/bin/stq
+```
+
 ## How to use the `alloc` command
 
 The unified script accepts arguments as `KEY=VALUE` pairs or subcommands:
