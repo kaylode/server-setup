@@ -26,4 +26,5 @@ This repository contains scripts and configuration templates to assist in settin
 1.  **Zsh Shell & Dotfiles**: Go to the [dotfiles](dotfiles/README.md) directory to set up Zsh, Oh My Zsh, Powerlevel10k, and copy your custom `.zshrc`.
 2.  **Node/NPM Setup**: Run `./installations/install_npm.sh` to install NVM and Node LTS.
 3.  **SLURM Job Setup**: Use scripts inside the [slurm](slurm/README.md) folder to configure interactive or background nodes.
-4.  **Podman Stack**: See the [podman](podman/README.md) directory to build and run containerized services.
+4.  Install `uv` package with `curl -LsSf https://astral.sh/uv/install.sh | sh`
+5.  **Podman Stack**: See the [podman](podman/README.md) directory to build and run containerized services.
